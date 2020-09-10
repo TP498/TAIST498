@@ -27,12 +27,16 @@
       <div class="center"></div>
     </ons-toolbar>
 
-    <p>This is the second page.</p>
+    <p id="latlng">This is the second page.</p>
   </ons-page>
 </template>
 <script>
 document.addEventListener('init', function(event) {
   var page = event.target;
+  
+  function showPosition(position) {
+    page.querySelector('#latlng').innerHTML = "Latitude: " + position.coords.latitude + "<br>Longitude: " + position.coords.longitude;
+  }
 
   if (page.id === 'page1') {
     page.querySelector('#push-button').onclick = function() {
@@ -40,6 +44,7 @@ document.addEventListener('init', function(event) {
     };
   } else if (page.id === 'page2') {
     page.querySelector('ons-toolbar .center').innerHTML = page.data.title;
+    navigator.geolocation.getCurrentPosition(showPosition);
   }
 });
 </script>  
